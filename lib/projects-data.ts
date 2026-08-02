@@ -7,6 +7,7 @@ export interface ProjectItem {
   link: string;
   long_description?: string;
   content?: string;
+  comments_enabled?: boolean;
 }
 
 export const FALLBACK_PROJECTS: ProjectItem[] = [

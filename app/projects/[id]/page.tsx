@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { FALLBACK_PROJECTS, ProjectItem } from "@/lib/projects-data";
 import { Footer } from "@/components/footer";
+import { VideoCommentSection } from "@/components/video-comments/video-comment-section";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -204,6 +205,20 @@ export default function ProjectDetailPage({ params }: PageProps) {
               </div>
             </div>
           </div>
+        </motion.div>
+
+        {/* Video Comments Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="mt-16"
+        >
+          <VideoCommentSection
+            contentType="project"
+            contentId={project.id}
+            commentsEnabled={project.comments_enabled ?? false}
+          />
         </motion.div>
       </main>
 

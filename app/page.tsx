@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
+import { Courses } from "@/components/courses";
 import { LabNotes } from "@/components/lab-notes";
 import { TechRadar } from "@/components/tech-radar";
 import { Graveyard } from "@/components/graveyard";
@@ -43,6 +44,7 @@ export default function Home() {
           </div>
 
           <Projects />
+          <Courses />
           <TechRadar />
           <LabNotes />
           <Graveyard />
