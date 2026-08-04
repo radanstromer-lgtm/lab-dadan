@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useSectionVisibility } from "@/lib/hooks/use-section-visibility";
 
 import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
@@ -11,6 +12,8 @@ import { Graveyard } from "@/components/graveyard";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
+  const { visibility } = useSectionVisibility();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -43,11 +46,11 @@ export default function Home() {
             ))}
           </div>
 
-          <Projects />
-          <Courses />
-          <TechRadar />
-          <LabNotes />
-          <Graveyard />
+          {visibility.projects && <Projects />}
+          {visibility.courses && <Courses />}
+          {visibility.tech_radar && <TechRadar />}
+          {visibility.lab_notes && <LabNotes />}
+          {visibility.graveyard && <Graveyard />}
         </div>
       </main>
 
@@ -55,3 +58,4 @@ export default function Home() {
     </div>
   );
 }
+
