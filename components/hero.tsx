@@ -1,7 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wrench, PencilRuler, Hammer, ClipboardEdit, ArrowDown } from "lucide-react";
+import { PencilRuler, ArrowDown, Mail, Youtube, Linkedin, Github } from "lucide-react";
+
+function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 2.226.725 4.283 1.956 5.952L2.5 21.5l3.655-1.424A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.802 0-3.483-.5-4.922-1.37l-.353-.213-2.67.1.8-2.613-.231-.368A7.955 7.955 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
+    </svg>
+  );
+}
+
+function MediumIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+    </svg>
+  );
+}
 
 export function Hero() {
   return (
@@ -63,20 +80,80 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
-            className="flex flex-wrap items-center gap-6"
+            className="space-y-6"
           >
-            <a
-              href="#projects"
-              className="group relative inline-flex items-center justify-center px-8 py-4 font-sans font-bold text-primary-foreground bg-primary uppercase tracking-widest transition-all hover:bg-primary/90 hover:scale-[1.02] shadow-[4px_4px_0px_0px_hsl(var(--foreground))] hover:shadow-[2px_2px_0px_0px_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] rounded-sm"
-            >
-              <Wrench className="w-5 h-5 mr-2" />
-              Open Toolbox
-            </a>
+            {/* Wording Kolaborasi / Sharing Ide */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-accent/15 border border-accent/40 text-foreground text-xs md:text-sm font-mono font-semibold backdrop-blur-md shadow-sm">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+              </span>
+              <span>Terbuka untuk kolaborasi proyek, konsultasi, atau sekadar sharing ide!</span>
+            </div>
 
-            <div className="flex gap-4 text-muted-foreground bg-card/50 p-3 rounded-full border border-border backdrop-blur-sm">
-              <Hammer className="w-6 h-6 hover:text-accent transition-colors cursor-help" />
-              <ClipboardEdit className="w-6 h-6 hover:text-secondary transition-colors cursor-help" />
-              <Wrench className="w-6 h-6 hover:text-primary transition-colors cursor-help" />
+            {/* Contacts & Social Media Buttons */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="mailto:email@dadan.id"
+                className="group relative inline-flex items-center justify-center px-6 py-3 font-sans font-bold text-primary-foreground bg-primary uppercase tracking-widest transition-all hover:bg-primary/90 hover:scale-[1.02] shadow-[4px_4px_0px_0px_hsl(var(--foreground))] hover:shadow-[2px_2px_0px_0px_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] rounded-sm text-sm"
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Email Saya
+              </a>
+
+              <a
+                href="https://wa.me/6283874917977"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center px-6 py-3 font-sans font-bold text-foreground bg-card border border-border uppercase tracking-widest transition-all hover:bg-muted hover:scale-[1.02] shadow-[4px_4px_0px_0px_hsl(var(--foreground))] hover:shadow-[2px_2px_0px_0px_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] rounded-sm text-sm"
+              >
+                <WhatsAppIcon className="w-4 h-4 mr-2 text-emerald-500" />
+                WhatsApp
+              </a>
+
+              {/* Social Channels Container */}
+              <div className="flex items-center gap-2 text-muted-foreground bg-card/60 p-2 rounded-md border border-border backdrop-blur-sm">
+                <a
+                  href="https://github.com/radanstromer-lgtm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="p-2 hover:text-primary hover:bg-muted rounded transition-colors"
+                  title="GitHub"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/dadan-dadan-b3322a68/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="p-2 hover:text-secondary hover:bg-muted rounded transition-colors"
+                  title="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@dadanid3005"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="p-2 hover:text-red-500 hover:bg-muted rounded transition-colors"
+                  title="YouTube"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://medium.com/@radan.stromer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Medium"
+                  className="p-2 hover:text-foreground hover:bg-muted rounded transition-colors"
+                  title="Medium"
+                >
+                  <MediumIcon className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
