@@ -1,7 +1,7 @@
-import type { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
 
-declare module "next-auth" {
+declare module "@auth/core/types" {
   interface Session {
     accessToken?: string;
     refreshToken?: string;
@@ -15,18 +15,19 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
+declare module "@auth/core/jwt" {
   interface JWT {
     accessToken?: string;
     refreshToken?: string;
     accessTokenExpires?: number;
     googleId?: string;
+    error?: string;
   }
 }
 
-export const authOptions: NextAuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
-    GoogleProvider({
+    Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
@@ -45,11 +46,11 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account }) {
       // On initial sign in, persist Google tokens
       if (account) {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
+        token.accessToken = account.access_token ?? undefined;
+        token.refreshToken = account.refresh_token ?? undefined;
         token.accessTokenExpires = account.expires_at
           ? account.expires_at * 1000
           : undefined;
@@ -58,9 +59,9 @@ export const authOptions: NextAuthOptions = {
 
       // If access token has expired, try to refresh it
       if (
-        token.accessTokenExpires &&
+        typeof token.accessTokenExpires === "number" &&
         Date.now() > token.accessTokenExpires &&
-        token.refreshToken
+        typeof token.refreshToken === "string"
       ) {
         try {
           const response = await fetch("https://oauth2.googleapis.com/token", {
@@ -94,11 +95,13 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
+      session.accessToken = token.accessToken as string | undefined;
+      session.refreshToken = token.refreshToken as string | undefined;
       if (session.user) {
-        session.user.googleId = token.googleId;
-        session.user.id = token.sub;
+        session.user.googleId = token.googleId as string | undefined;
+        if (token.sub) {
+          session.user.id = token.sub;
+        }
       }
       return session;
     },
@@ -106,5 +109,4 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/", // Redirect to home page for sign in
   },
-  secret: process.env.NEXTAUTH_SECRET,
-};
+});

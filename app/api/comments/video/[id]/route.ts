@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-options";
+import { auth } from "@/auth";
 import { createServiceClient } from "@/lib/supabase/service";
 
 interface RouteParams {
@@ -13,7 +12,7 @@ interface RouteParams {
  */
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.user?.googleId) {
     return NextResponse.json(
@@ -89,7 +88,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
  */
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.user?.googleId) {
     return NextResponse.json(

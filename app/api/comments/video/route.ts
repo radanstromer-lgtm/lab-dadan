@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-options";
+import { auth } from "@/auth";
 import { createServiceClient } from "@/lib/supabase/service";
 import {
   createYouTubeClient,
@@ -27,7 +26,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const supabase = createServiceClient();
 
   // Fetch public + approved comments (visible to everyone)
@@ -81,7 +80,7 @@ export async function GET(request: NextRequest) {
  * Body: FormData with video file + metadata fields.
  */
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken || !session?.user?.googleId) {
     return NextResponse.json(

@@ -1,7 +1,10 @@
 node_modules
 .next
+.open-next
+.vercel
 out
 dist
 .env*.local
+.dev.vars
 .DS_Store
 *.log
