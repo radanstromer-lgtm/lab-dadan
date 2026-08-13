@@ -62,6 +62,7 @@ export function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           {projects.map((project, i) => (
+            <Link  href={`/projects/${project.id}`} key={project.id}>
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -91,10 +92,10 @@ export function Projects() {
                 <h3 className="text-xl font-bold uppercase mb-2 text-foreground group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground font-sans text-sm mb-4 flex-1 line-clamp-2">
-                  {project.description.length > 90
-                    ? `${project.description.slice(0, 90)}...`
-                    : project.description}
+                <p className="text-muted-foreground font-sans text-lg mb-4 flex-1 line-clamp-10">
+                  {project.description.replace(/<[^>]*>?/gm, '').length > 350
+                    ? `${project.description.replace(/<[^>]*>?/gm, '').slice(0, 350)}...`
+                    : project.description.replace(/<[^>]*>?/gm, '')}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
@@ -117,6 +118,7 @@ export function Projects() {
                 </Link>
               </div>
             </motion.div>
+            </Link>
           ))}
         </div>
       </div>

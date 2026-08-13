@@ -18,7 +18,7 @@ export function Hero() {
       </div>
 
       <div className="container relative z-30 px-6 mx-auto">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, rotate: -5 }}
             animate={{ opacity: 1, rotate: -2 }}
@@ -82,21 +82,12 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute right-0 top-1/4 hidden lg:block select-none opacity-10 text-secondary pointer-events-none">
-        <svg
-          width="400"
-          height="400"
-          viewBox="0 0 200 200"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1"
-          className="rotate-12"
-        >
-          <circle cx="100" cy="100" r="80" strokeDasharray="4 4" />
-          <path d="M20 100 H180 M100 20 V180" strokeDasharray="2 2" />
-          <rect x="60" y="60" width="80" height="80" />
-          <path d="M60 60 L140 140 M60 140 L140 60" strokeDasharray="1 3" />
-        </svg>
+      <div className="absolute right-0 bottom-0 w-full lg:w-[55%] h-full z-20 pointer-events-none flex items-end justify-end opacity-90">
+        <img
+          src="/images/scetch-hero-dadan.png"
+          alt="Dadan Sketch"
+          className="w-full h-full object-contain object-right-bottom"
+        />
       </div>
 
       <motion.div
