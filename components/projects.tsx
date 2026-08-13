@@ -75,12 +75,12 @@ export function Projects() {
                 <Paperclip className="w-8 h-8" strokeWidth={1.5} />
               </div>
 
-              <div className="relative aspect-[4/3] mb-4 bg-muted border border-border p-2 pb-8 shadow-sm">
-                <div className="w-full h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full mb-4 bg-muted border border-border shadow-sm">
+                <div className="absolute top-2 left-2 right-2 bottom-8 overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
                 <div className="absolute bottom-2 right-3 font-mono text-[10px] text-muted-foreground">

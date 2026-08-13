@@ -131,12 +131,12 @@ export default function ProjectDetailPage({ params }: PageProps) {
                   <Paperclip className="w-10 h-10" strokeWidth={1.5} />
                 </div>
 
-                <div className="relative aspect-[4/3] bg-muted border border-border p-2 pb-10 shadow-sm">
-                  <div className="w-full h-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full bg-muted border border-border shadow-sm">
+                  <div className="absolute top-2 left-2 right-2 bottom-10 overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="absolute bottom-3 right-4 font-mono text-xs text-muted-foreground">
