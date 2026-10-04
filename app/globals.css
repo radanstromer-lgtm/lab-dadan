@@ -417,3 +417,458 @@
   margin-bottom: 0;
 }
 
+/* =============================
+   YouTube Embed Styles
+   ============================= */
+.youtube-embed {
+  overflow: hidden;
+}
+.youtube-embed__wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+.youtube-embed__iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.youtube-embed__thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: hsl(var(--muted));
+}
+.youtube-embed__thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+.youtube-embed__thumbnail:hover .youtube-embed__thumbnail-img {
+  transform: scale(1.03);
+  filter: brightness(0.85);
+}
+.youtube-embed__play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  transition: background 0.3s ease;
+}
+.youtube-embed__thumbnail:hover .youtube-embed__play-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+.youtube-embed__play-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.youtube-embed__thumbnail:hover .youtube-embed__play-btn {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+.youtube-embed__label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: hsl(var(--background) / 0.85);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+.youtube-embed__placeholder {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--muted));
+}
+
+/* =============================
+   Commit List Styles
+   ============================= */
+.commit-list__container {
+  background: hsl(var(--card));
+  font-family: var(--app-font-mono);
+  font-size: 0.8rem;
+}
+.commit-list__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid hsl(var(--border));
+  transition: background 0.15s ease;
+  animation: commitSlideIn 0.3s ease forwards;
+  opacity: 0;
+}
+.commit-list__item:last-child {
+  border-bottom: none;
+}
+.commit-list__item:hover {
+  background: hsl(var(--muted) / 0.4);
+}
+.commit-list__hash {
+  font-family: var(--app-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid hsl(var(--primary) / 0.2);
+  white-space: nowrap;
+}
+.commit-list__hash--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.commit-list__hash--link:hover {
+  background: hsl(var(--primary) / 0.2);
+}
+.commit-list__message {
+  font-family: var(--app-font-mono);
+  font-size: 0.8rem;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.commit-list__meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.7rem;
+  color: hsl(var(--muted-foreground));
+  white-space: nowrap;
+}
+.commit-list__author {
+  font-weight: 600;
+}
+
+@keyframes commitSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =============================
+   Timeline Styles — Desktop
+   ============================= */
+.timeline-section {
+  position: relative;
+}
+.timeline-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.timeline-scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 140px 40px 20px 40px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+}
+.timeline-scroll::-webkit-scrollbar {
+  display: none;
+}
+.timeline-line {
+  position: absolute;
+  top: 140px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--border)) 5%,
+    hsl(var(--border)) 95%,
+    transparent
+  );
+  z-index: 1;
+}
+.timeline-items {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  position: relative;
+  z-index: 2;
+}
+.timeline-node {
+  position: relative;
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timeline-node--top {
+  margin-top: -130px;
+}
+.timeline-node--bottom {
+  margin-top: 20px;
+}
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid hsl(var(--background));
+  box-shadow: 0 0 0 2px hsl(var(--border));
+  position: relative;
+  z-index: 3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.timeline-node:hover .timeline-dot {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+}
+.timeline-connector {
+  width: 2px;
+  height: 20px;
+  background: hsl(var(--border));
+}
+.timeline-node--top .timeline-connector {
+  order: 2;
+}
+.timeline-node--top .timeline-dot {
+  order: 3;
+}
+.timeline-node--top .timeline-card {
+  order: 1;
+}
+.timeline-node--bottom .timeline-connector {
+  order: 1;
+}
+.timeline-node--bottom .timeline-dot {
+  order: 0;
+  margin-top: -7px;
+}
+.timeline-node--bottom .timeline-card {
+  order: 2;
+}
+/* Dot colors */
+.timeline-dot--release { background: hsl(24, 95%, 50%); }
+.timeline-dot--feature { background: hsl(210, 70%, 55%); }
+.timeline-dot--fix { background: hsl(0, 0%, 70%); }
+.timeline-dot--milestone { background: hsl(48, 95%, 50%); }
+.timeline-dot--redesign { background: hsl(280, 60%, 55%); }
+
+.timeline-dot--legend {
+  border: none;
+  box-shadow: none;
+}
+
+/* Timeline Card */
+.timeline-card {
+  display: block;
+  width: 180px;
+  padding: 12px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  background: hsl(var(--card));
+  text-decoration: none;
+  color: hsl(var(--foreground));
+  transition: all 0.25s ease;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.04);
+}
+.timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.08);
+  border-color: hsl(var(--primary) / 0.4);
+}
+.timeline-card__badge {
+  font-family: var(--app-font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 6px;
+  color: hsl(var(--primary-foreground));
+}
+.timeline-card--release .timeline-card__badge { background: hsl(24, 95%, 50%); color: #fff; }
+.timeline-card--feature .timeline-card__badge { background: hsl(210, 70%, 55%); color: #fff; }
+.timeline-card--fix .timeline-card__badge { background: hsl(0, 0%, 70%); color: #333; }
+.timeline-card--milestone .timeline-card__badge { background: hsl(48, 95%, 50%); color: #333; }
+.timeline-card--redesign .timeline-card__badge { background: hsl(280, 60%, 55%); color: #fff; }
+
+.timeline-card__version {
+  font-family: var(--app-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  margin-bottom: 4px;
+}
+.timeline-card__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.timeline-card__summary {
+  font-size: 0.72rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.timeline-card__date {
+  font-family: var(--app-font-mono);
+  font-size: 0.65rem;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+}
+
+/* Scroll buttons */
+.timeline-scroll-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.timeline-scroll-btn:hover:not(:disabled) {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.timeline-scroll-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Fade edges */
+.timeline-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 10;
+  pointer-events: none;
+}
+.timeline-fade--left {
+  left: 0;
+  background: linear-gradient(to right, hsl(var(--background)), transparent);
+}
+.timeline-fade--right {
+  right: 0;
+  background: linear-gradient(to left, hsl(var(--background)), transparent);
+}
+
+/* =============================
+   Timeline Styles — Mobile
+   ============================= */
+.timeline-mobile {
+  position: relative;
+  padding-left: 28px;
+}
+.timeline-mobile__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 9px;
+  width: 3px;
+  background: hsl(var(--border));
+  border-radius: 2px;
+}
+.timeline-mobile__item {
+  position: relative;
+  margin-bottom: 20px;
+}
+.timeline-mobile__dot {
+  position: absolute;
+  left: -25px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 3px solid hsl(var(--background));
+  box-shadow: 0 0 0 2px hsl(var(--border));
+  z-index: 2;
+}
+.timeline-mobile .timeline-card {
+  width: 100%;
+}
+
+/* =============================
+   Update Badge Styles
+   ============================= */
+.update-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--app-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+.update-badge--release {
+  background: hsl(24, 95%, 50% / 0.15);
+  color: hsl(24, 95%, 50%);
+  border: 1px solid hsl(24, 95%, 50% / 0.3);
+}
+.update-badge--feature {
+  background: hsl(210, 70%, 55% / 0.15);
+  color: hsl(210, 70%, 55%);
+  border: 1px solid hsl(210, 70%, 55% / 0.3);
+}
+.update-badge--fix {
+  background: hsl(0, 0%, 70% / 0.15);
+  color: hsl(0, 0%, 55%);
+  border: 1px solid hsl(0, 0%, 70% / 0.3);
+}
+.update-badge--milestone {
+  background: hsl(48, 95%, 50% / 0.15);
+  color: hsl(48, 80%, 40%);
+  border: 1px solid hsl(48, 95%, 50% / 0.3);
+}
+.update-badge--redesign {
+  background: hsl(280, 60%, 55% / 0.15);
+  color: hsl(280, 60%, 55%);
+  border: 1px solid hsl(280, 60%, 55% / 0.3);
+}
+

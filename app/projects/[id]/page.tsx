@@ -5,9 +5,11 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink, Paperclip, Tag, Calendar, Code, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { FALLBACK_PROJECTS, ProjectItem } from "@/lib/projects-data";
+import { FALLBACK_PROJECTS, ProjectItem, ProjectUpdate } from "@/lib/projects-data";
 import { Footer } from "@/components/footer";
 import { VideoCommentSection } from "@/components/video-comments/video-comment-section";
+import { YouTubeEmbed } from "@/components/youtube-embed";
+import { ProjectTimeline } from "@/components/project-timeline";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -16,6 +18,7 @@ interface PageProps {
 export default function ProjectDetailPage({ params }: PageProps) {
   const { id } = use(params);
   const [project, setProject] = useState<ProjectItem | null>(null);
+  const [updates, setUpdates] = useState<ProjectUpdate[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +33,22 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
         if (!error && data) {
           setProject(data as ProjectItem);
+
+          // Fetch project updates
+          const { data: updatesData } = await supabase
+            .from("project_updates")
+            .select("*")
+            .eq("project_id", id)
+            .order("published_at", { ascending: true });
+
+          if (updatesData) {
+            setUpdates(
+              updatesData.map((u: Record<string, unknown>) => ({
+                ...u,
+                commits: u.commits || [],
+              })) as ProjectUpdate[]
+            );
+          }
         } else {
           // Fallback to local data matching ID
           const local = FALLBACK_PROJECTS.find((p) => p.id === id);
@@ -148,6 +167,25 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
             {/* Technical Specs & Description */}
             <div className="col-span-12 space-y-8">
+              {/* YouTube Video (Project Main) */}
+              {project.youtube_url && (
+                <div className="space-y-3">
+                  <YouTubeEmbed url={project.youtube_url} title={`${project.title} — Project Overview`} />
+                </div>
+              )}
+
+               {/* Development Journey Timeline */}
+              {updates.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
+                  className="border-t-2 border-border pt-10"
+                >
+                  <ProjectTimeline projectId={project.id} updates={updates} />
+                </motion.div>
+              )}
+
               {/* Article Content */}
               <div className="space-y-3">
                 <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold">
@@ -205,6 +243,8 @@ export default function ProjectDetailPage({ params }: PageProps) {
               </div>
             </div>
           </div>
+
+         
         </motion.div>
 
         {/* Video Comments Section */}

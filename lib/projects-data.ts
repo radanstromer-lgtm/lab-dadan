@@ -8,6 +8,33 @@ export interface ProjectItem {
   long_description?: string;
   content?: string;
   comments_enabled?: boolean;
+  youtube_url?: string;
+  github_repo_url?: string;
+  github_repo_private?: boolean;
+}
+
+export interface CommitEntry {
+  hash: string;
+  message: string;
+  date: string;
+  author: string;
+  url?: string;
+}
+
+export interface ProjectUpdate {
+  id: string;
+  project_id: string;
+  version_label: string;
+  title: string;
+  summary: string;
+  content?: string;
+  youtube_url?: string;
+  cover_image?: string;
+  commits: CommitEntry[];
+  update_type: "feature" | "fix" | "release" | "milestone" | "redesign";
+  published_at: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export const FALLBACK_PROJECTS: ProjectItem[] = [
