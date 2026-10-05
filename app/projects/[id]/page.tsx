@@ -98,7 +98,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="relative min-h-screen selection:bg-primary/20 selection:text-foreground bg-background text-foreground">
+    <div className="relative min-h-screen selection:bg-primary/20 selection:text-foreground bg-background text-foreground overflow-x-hidden">
       {/* Background grid texture */}
       <div className="absolute inset-0 bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)] bg-[size:30px_30px] opacity-10 pointer-events-none" />
 
@@ -141,10 +141,10 @@ export default function ProjectDetailPage({ params }: PageProps) {
             </h1>
           </div>
 
-          {/* Grid Layout: Left Image Polaroid, Right Details */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Layout: Image Polaroid, Details & Content */}
+          <div className="space-y-10 items-start w-full min-w-0">
             {/* Image Preview Polaroid */}
-            <div className="col-span-12">
+            <div className="w-full min-w-0">
               <div className="paper-card group relative p-4 bg-card rounded-sm border border-border shadow-md">
                 <div className="absolute -top-4 left-6 text-muted-foreground z-30 drop-shadow-md transform -rotate-12">
                   <Paperclip className="w-10 h-10" strokeWidth={1.5} />
@@ -166,7 +166,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
             </div>
 
             {/* Technical Specs & Description */}
-            <div className="col-span-12 space-y-8">
+            <div className="w-full min-w-0 space-y-8">
               {/* YouTube Video (Project Main) */}
               {project.youtube_url && (
                 <div className="space-y-3">

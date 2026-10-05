@@ -582,6 +582,8 @@
    ============================= */
 .timeline-section {
   position: relative;
+  width: 100%;
+  overflow-x: clip;
 }
 .timeline-wrapper {
   position: relative;
